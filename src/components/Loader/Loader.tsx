@@ -1,7 +1,8 @@
+import { FC } from "react";
 import styles from "./Loader.module.css";
 import { LineWave } from "react-loader-spinner";
 
-const Loader = () => {
+const Loader: FC = () => {
   return (
     <div className={styles.loaderContainer}>
       <LineWave

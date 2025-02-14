@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchArticles } from "/src/services/api.js";
+import { fetchArticles } from "../services/api";
 import SearchBar from "./SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "./Loader/Loader";
@@ -8,15 +8,16 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./ImageModal/ImageModal";
 import styles from "/src/App.module.css";
+import { Photo } from "../types";
 
-const App = () => {
-  const [articles, setArticles] = useState([]);
-  const [query, setQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+const App: React.FC = () => {
+  const [articles, setArticles] = useState<Photo[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Photo | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -38,7 +39,7 @@ const App = () => {
     getArticlesData();
   }, [page, query]);
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string) => {
     if (newQuery === query) {
       toast.error("Please enter a different search query!");
       return;
@@ -52,7 +53,7 @@ const App = () => {
     setPage((prev) => prev + 1);
   };
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: Photo) => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };

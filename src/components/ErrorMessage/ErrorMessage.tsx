@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styles from "./ErrorMessage.module.css";
 
-const ErrorMessage = () => {
+const ErrorMessage: FC = () => {
   return (
     <div>
       <p className={styles.error}>

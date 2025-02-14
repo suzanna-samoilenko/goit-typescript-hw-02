@@ -1,24 +1,27 @@
+import { FC } from "react";
+import { Photo } from "../../types";
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
-const ImageGallery = ({ items, onImageClick }) => {
+interface ImageGalleryProps {
+  items: Photo[];
+  onImageClick: (image: Photo) => void;
+}
+
+const ImageGallery: FC<ImageGalleryProps> = ({ items, onImageClick }) => {
   return (
     <ul className={styles.gallery}>
       {items.map((image) => (
         <li key={image.id} className={styles.card}>
           <ImageCard
             src={image.urls.small}
-            alt={image.alt_description}
-            onClick={() =>
-              onImageClick({
-                url: image.urls.regular,
-                alt: image.alt_description,
-              })
-            }
+            alt={image.alt_description || "Image"}
+            onClick={() => onImageClick(image)}
           />
         </li>
       ))}
     </ul>
   );
 };
+
 export default ImageGallery;
